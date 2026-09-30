@@ -1,7 +1,7 @@
 {
   "name": "alejandro-y-lucila",
   "private": true,
-  "description": "Invitación de casamiento de Alejandro y Lucila, servida desde Cloudflare Workers",
+  "description": "Invitación de casamiento de Ale y Luli, servida desde Cloudflare Workers",
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",

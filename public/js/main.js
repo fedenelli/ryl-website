@@ -5,12 +5,18 @@
   var CONFIG = {
     eventStart: '2026-11-20T20:00:00-03:00',   // fecha y hora de inicio
     eventEnd:   '2026-11-21T05:00:00-03:00',   // fin estimado, para el evento del calendario
-    title: 'Casamiento de Alejandro y Lucila',
+    title: 'Casamiento de Ale & Luli',
     details: 'Sin ceremonia, solo fiesta. Dress code cocktail. Confirmá tu asistencia en la invitación.',
 
-    // Lugar. Cuando esté definido, completá name (y address). mapsDestination es opcional:
-    // sirve para forzar el destino exacto en Google Maps (por ejemplo el nombre del salón + ciudad).
-    venue: { name: 'Olaguer y Feliu 3180', address: 'Olivos, Buenos Aires', mapsDestination: 'Olaguer y Feliu 3180, Olivos, Buenos Aires, Argentina' },
+    // Lugar. name y address se muestran en la página. location va al evento del calendario.
+    // mapsDestination fuerza el destino en Google Maps: coordenadas, porque hay otra calle
+    // Olaguer y Feliú en CABA y con el texto solo Google Maps puede elegir esa.
+    venue: {
+      name: 'Olaguer y Feliú 3180',
+      address: 'Olivos, Provincia de Buenos Aires',
+      location: 'Virrey Olaguer y Feliú 3180, B1602 Olivos, Provincia de Buenos Aires, Argentina',
+      mapsDestination: '-34.5258148,-58.5046753'
+    },
 
     rsvpDeadline: '20 de octubre de 2026',
 
@@ -37,7 +43,7 @@
 
   // ---------- Calendario ----------
   function toUTC(iso) { return new Date(iso).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); }
-  var locationText = [CONFIG.venue.name, CONFIG.venue.address].filter(Boolean).join(', ');
+  var locationText = CONFIG.venue.location || [CONFIG.venue.name, CONFIG.venue.address].filter(Boolean).join(', ');
 
   var params = new URLSearchParams({
     action: 'TEMPLATE',
@@ -48,17 +54,18 @@
   if (locationText) params.set('location', locationText);
   $('#gcal-link').href = 'https://calendar.google.com/calendar/render?' + params.toString();
 
-  // Archivo .ics para Apple Calendar, Outlook y otros.
+  // Archivo .ics para Apple Calendar, Outlook y otros. En los textos hay que escapar \ , ; y saltos de línea.
+  function icsText(t) { return String(t).replace(/([\\,;])/g, '\\$1').replace(/\n/g, '\\n'); }
   var ics = [
-    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Alejandro y Lucila//Casamiento//ES', 'CALSCALE:GREGORIAN',
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Ale y Luli//Casamiento//ES', 'CALSCALE:GREGORIAN',
     'BEGIN:VEVENT',
     'UID:casamiento-alejandro-lucila-20261120@invitacion',
     'DTSTAMP:' + toUTC(new Date().toISOString()),
     'DTSTART:' + toUTC(CONFIG.eventStart),
     'DTEND:' + toUTC(CONFIG.eventEnd),
-    'SUMMARY:' + CONFIG.title,
-    'DESCRIPTION:' + CONFIG.details,
-    'LOCATION:' + locationText,
+    'SUMMARY:' + icsText(CONFIG.title),
+    'DESCRIPTION:' + icsText(CONFIG.details),
+    'LOCATION:' + icsText(locationText),
     'END:VEVENT', 'END:VCALENDAR'
   ].join('\r\n');
   $('#ics-link').href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));

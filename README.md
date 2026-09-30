@@ -1,4 +1,4 @@
-# Invitación de casamiento: Alejandro & Lucila
+# Invitación de casamiento: Ale & Luli
 
 Página de una sola vista servida desde **Cloudflare Workers** (assets estáticos + un Worker mínimo). El Worker sirve los archivos de `public/` y expone `POST /api/rsvp`, que valida cada confirmación y la reenvía al webhook de n8n. La URL del webhook queda guardada como secreto en Cloudflare, nunca en el navegador.
 
@@ -13,7 +13,6 @@ public/             Sitio estático (lo que se sirve)
   _headers          Cabeceras de seguridad para los assets
 src/index.js        Worker: sirve assets y proxy /api/rsvp -> n8n
 wrangler.jsonc      Configuración de Cloudflare Workers
-.github/workflows/  Deploy automático con GitHub Actions (opcional, ver abajo)
 source/             Archivos originales (fotos en alta y paleta). No se publican.
 ```
 
@@ -25,7 +24,8 @@ Todo lo que cambia está en el bloque `CONFIG` al inicio de `public/js/main.js`:
 |---|---|
 | `eventStart` / `eventEnd` | Inicio y fin del evento, con zona horaria. Mueven la cuenta regresiva y el evento del calendario. |
 | `venue.name` / `venue.address` | Nombre y dirección del lugar. Mientras `name` esté vacío, la página muestra "A confirmar" y el link de Google Maps queda desactivado. |
-| `venue.mapsDestination` | Opcional. Texto exacto que se usa como destino en Google Maps si la dirección sola es ambigua. |
+| `venue.location` | Dirección completa que se usa en el evento del calendario. |
+| `venue.mapsDestination` | Destino en Google Maps. Hoy son coordenadas, porque también existe una calle Olaguer y Feliú en CABA. |
 | `rsvpDeadline` | Fecha límite de confirmación, tal como se muestra en el texto. |
 | `rsvpEndpoint` | Adónde se envían las confirmaciones. Por defecto `/api/rsvp` (el Worker). |
 
@@ -87,25 +87,12 @@ npm run check      # valida la configuración y arma el bundle sin deployar
 
 ## Deploy automático
 
-Elegí **una** de las dos opciones.
+El repo está conectado a Cloudflare con **Workers Builds** (Workers & Pages > Create > Import a repository):
 
-### Opción A: Workers Builds (recomendada, sin tokens)
-
-1. Subí el repo a GitHub o GitLab.
-2. En el dashboard de Cloudflare: **Workers & Pages > Create > Import a repository**, y elegí el repo.
-3. Dejá el build command vacío y el deploy command en `npx wrangler deploy` (el default). Usa la versión de wrangler del `package.json`.
-4. Guardá. Cada push a `main` deploya; las otras ramas generan previews (`preview_urls` está activado en `wrangler.jsonc`).
-5. Cargá el secreto `N8N_WEBHOOK_URL` en Settings > Variables & Secrets.
-6. Borrá `.github/workflows/deploy.yml` para no deployar dos veces por push.
-
-### Opción B: GitHub Actions
-
-El workflow `.github/workflows/deploy.yml` deploya en cada push a `main`. Necesita dos secretos en el repo (Settings > Secrets and variables > Actions):
-
-- `CLOUDFLARE_API_TOKEN`: token creado con la plantilla **Edit Cloudflare Workers**, limitado a esta cuenta.
-- `CLOUDFLARE_ACCOUNT_ID`: ID de la cuenta (Workers & Pages > Overview, columna derecha).
-
-El secreto `N8N_WEBHOOK_URL` se carga igual que en la opción A.
+- Cada push a `main` deploya. Las otras ramas generan previews (`preview_urls` está activado en `wrangler.jsonc`).
+- Build command vacío y deploy command `npx wrangler deploy` (el default). Usa la versión de wrangler del `package.json`.
+- El `name` de `wrangler.jsonc` tiene que coincidir con el nombre del Worker en el dashboard.
+- El secreto `N8N_WEBHOOK_URL` se carga en Settings > Variables & Secrets.
 
 ### Deploy manual
 
