@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "alejandro-y-lucila",
+  "main": "./src/index.js",
+  "compatibility_date": "2026-09-30",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "observability": { "enabled": true },
+  "workers_dev": true,
+  "preview_urls": true
+  // Dominio propio: descomentar y ajustar cuando lo tengan.
+  // "routes": [{ "pattern": "invitacion.tu-dominio.com", "custom_domain": true }]
+}

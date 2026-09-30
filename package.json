@@ -1,0 +1,17 @@
+{
+  "name": "alejandro-y-lucila",
+  "private": true,
+  "description": "Invitación de casamiento de Alejandro y Lucila, servida desde Cloudflare Workers",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "check": "wrangler deploy --dry-run --outdir .wrangler/dist",
+    "deploy": "wrangler deploy"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "wrangler": "^4.144.0"
+  }
+}

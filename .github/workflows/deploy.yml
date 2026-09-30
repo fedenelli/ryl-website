@@ -1,0 +1,31 @@
+# Deploy automático a Cloudflare Workers en cada push a main.
+#
+# Requiere dos secretos en el repo (Settings > Secrets and variables > Actions):
+#   CLOUDFLARE_API_TOKEN   token con el permiso "Edit Cloudflare Workers"
+#   CLOUDFLARE_ACCOUNT_ID  ID de la cuenta
+#
+# Si en vez de esto conectás el repo desde el dashboard de Cloudflare (Workers Builds),
+# borrá este archivo para no deployar dos veces por cada push.
+name: Deploy a Cloudflare Workers
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

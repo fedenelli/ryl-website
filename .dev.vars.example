@@ -1,0 +1,2 @@
+# Copiar a .dev.vars para desarrollo local con `npm run dev`. No se sube al repo.
+N8N_WEBHOOK_URL=https://TU-INSTANCIA-N8N/webhook/casamiento
