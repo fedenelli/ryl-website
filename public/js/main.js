@@ -125,7 +125,7 @@
       mensaje: $('#mensaje').value.trim()
     };
     var firstInvalid = null;
-    [['nombre', !data.nombre], ['asistencia', !data.asistencia]].forEach(function (p) {
+    [['asistencia', !data.asistencia], ['nombre', !data.nombre]].forEach(function (p) {
       setInvalid(p[0], p[1]);
       if (p[1] && !firstInvalid) firstInvalid = p[0];
     });
