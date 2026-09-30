@@ -160,10 +160,15 @@
     }
 
     send.then(function () {
+      // Con la respuesta enviada, el título y el pedido de confirmación ya no aplican.
       form.hidden = true;
-      $('#success-title').textContent = '¡Gracias, ' + data.nombre.split(/\s+/)[0] + '!';
-      $('#success-text').textContent = data.asistencia === 'si'
-        ? 'Ya anotamos que venís. Nos vemos el 20 de noviembre.'
+      $('#rsvp-titulo').hidden = true;
+      $('#rsvp-intro').hidden = true;
+      $('#confirmar').setAttribute('aria-labelledby', 'success-title');
+      var attending = data.asistencia === 'si';
+      $('#success-title').textContent = attending ? '¡Qué lindo que vengas!' : '¡Gracias, ' + data.nombre.split(/\s+/)[0] + '!';
+      $('#success-text').textContent = attending
+        ? 'Ya anotamos tu confirmación.\nNos vemos el 20 de noviembre 🤍'
         : 'Ya anotamos que no vas a poder venir. Gracias por avisarnos.';
       var ok = $('#rsvp-success');
       ok.hidden = false;
