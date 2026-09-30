@@ -3,14 +3,14 @@
   // CONFIGURACIÓN: todo lo que puede cambiar vive acá.
   // =====================================================================
   var CONFIG = {
-    eventStart: '2026-11-20T19:00:00-03:00',   // fecha y hora de inicio (hora a confirmar)
+    eventStart: '2026-11-20T20:00:00-03:00',   // fecha y hora de inicio
     eventEnd:   '2026-11-21T05:00:00-03:00',   // fin estimado, para el evento del calendario
     title: 'Casamiento de Alejandro y Lucila',
-    details: 'Dress code cocktail. Confirmá tu asistencia en la invitación.',
+    details: 'Sin ceremonia, solo fiesta. Dress code cocktail. Confirmá tu asistencia en la invitación.',
 
     // Lugar. Cuando esté definido, completá name (y address). mapsDestination es opcional:
     // sirve para forzar el destino exacto en Google Maps (por ejemplo el nombre del salón + ciudad).
-    venue: { name: '', address: '', mapsDestination: '' },
+    venue: { name: 'Olaguer y Feliu 3180', address: 'Olivos, Buenos Aires', mapsDestination: 'Olaguer y Feliu 3180, Olivos, Buenos Aires, Argentina' },
 
     rsvpDeadline: '20 de octubre de 2026',
 

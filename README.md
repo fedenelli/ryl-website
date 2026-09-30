@@ -31,7 +31,7 @@ Todo lo que cambia está en el bloque `CONFIG` al inicio de `public/js/main.js`:
 
 Además, en `public/index.html`:
 
-- La línea "Horario a confirmar" dentro de la sección "Cuándo y dónde".
+- La línea del horario ("A partir de las 20:00 hs.") y el lugar dentro de la sección "Cuándo y dónde" (el HTML trae los mismos valores que `CONFIG` para que se vean sin JavaScript).
 - Las etiquetas `og:url` y `og:image` en el `<head>`: reemplazá `https://TU-DOMINIO` por la URL real del sitio para que el preview en WhatsApp muestre la foto.
 
 ## Formulario y n8n

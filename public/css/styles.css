@@ -1,17 +1,15 @@
 /* Invitación de casamiento de Alejandro y Lucila.
    Layout: una tarjeta de invitación continua. Columna central angosta (720px de texto), todo centrado,
-   marco fino fijo como una tarjeta impresa, filetes verticales cortos como separadores, fotos como copias
-   sueltas de un álbum. Serif para todo lo que se lee; sans solo para etiquetas y formulario. Tema único, crema cálida. */
+   marco fino fijo como una tarjeta impresa, filetes verticales cortos como separadores, foto como una copia
+   suelta de un álbum. Serif para todo lo que se lee; sans solo para etiquetas y formulario. Tema único, crema cálida. */
 :root {
-  --bg: #F5EBDC;          /* crema cálida, tirando a durazno */
-  --bg-soft: #EFDFCB;
+  --bg: #F9F5EA;          /* crema cálida */
   --fg: #2A1416;          /* negro vino */
   --muted: #6B5654;
   --line: #DCCBBB;
   --line-strong: #A66B63; /* rosa viejo: bordes de inputs y filetes */
-  --bordo: #5F1418;
-  --bordo-deep: #470F12;
-  --durazno: #D88E71;
+  --bordo: #872F2F;
+  --bordo-deep: #6B2424;
   --font-display: 'Cormorant Garamond', 'Cormorant', Georgia, 'Times New Roman', serif;
   --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --measure: 720px;
@@ -67,7 +65,7 @@ h2 em { font-style: italic; color: var(--bordo); }
   min-height: 52px; padding: 0 36px;
   background: var(--bordo); color: var(--bg);
   font: 600 .75rem/1 var(--font-body); letter-spacing: .18em; text-transform: uppercase; white-space: nowrap;
-  text-decoration: none; border: 1px solid var(--bordo); border-radius: 0; cursor: pointer;
+  text-decoration: none; border: 1px solid var(--bordo); border-radius: 6px; cursor: pointer;
   transition: background-color .3s var(--ease), color .3s var(--ease), transform .3s var(--ease), border-color .3s var(--ease);
 }
 .btn:hover { background: var(--bordo-deep); border-color: var(--bordo-deep); transform: translateY(-1px); }
@@ -94,30 +92,27 @@ h1 em { font-style: italic; font-weight: 300; font-size: .55em; line-height: 1.3
 .countdown { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.125rem, 2vw, 1.375rem); color: var(--muted); margin: 0 0 44px; }
 .countdown b { font-weight: 400; color: var(--fg); font-variant-numeric: tabular-nums; }
 
-/* ---------- Fotos como copias de un álbum ---------- */
-.prints { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 24px; max-width: 880px; margin: clamp(48px, 7vw, 96px) auto; align-items: start; }
-.print { margin: 0; min-width: 0; grid-row: 1; }
-.print img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; filter: sepia(.3) saturate(.85); transition: filter .8s var(--ease); }
+/* ---------- Foto como copia de un álbum ---------- */
+.print { max-width: 440px; margin: clamp(48px, 7vw, 96px) auto; }
+.print img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 40%; filter: sepia(.3) saturate(.85); transition: filter .8s var(--ease); }
 .print img:hover { filter: none; }
-.print-a { grid-column: 2 / 7; }
-.print-b { grid-column: 6 / 11; margin-top: 34%; border: 10px solid var(--bg); position: relative; z-index: 1; }
-.print-a img { object-position: 50% 35%; }
-.print-b img { object-position: 50% 40%; }
 
 /* ---------- Bloques ---------- */
 .block { padding-block: clamp(56px, 8vw, 96px); text-align: center; }
 .block > .col > p.intro { color: var(--muted); max-width: 40ch; margin: 0 auto 48px; }
-.details { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px 48px; text-align: left; }
+.details { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px 0; text-align: left; }
+.details > :first-child, .dc-cols > :first-child { padding-right: 48px; }
 .details > * + * { border-left: 1px solid var(--line); padding-left: 48px; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
 .help { color: var(--muted); font-size: .8125rem; margin: 0; }
 
 /* Dress code */
-.dc-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px 48px; text-align: left; margin-bottom: 40px; }
+.dc-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px 0; text-align: left; margin-bottom: 40px; }
 .dc-cols > * + * { border-left: 1px solid var(--line); padding-left: 48px; }
 .dc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
 .dc-list li { display: grid; grid-template-columns: 26px 1fr; gap: 16px; align-items: start; font-size: .9375rem; line-height: 1.55; }
 .dc-list .ms { margin-top: 1px; }
+.dc-hint { display: block; color: var(--muted); font-size: .8125rem; font-style: italic; margin-top: 2px; }
 
 /* Modal */
 dialog { border: 1px solid var(--line-strong); background: var(--bg); color: var(--fg); padding: 0; width: min(760px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow: auto; }
@@ -126,7 +121,7 @@ dialog::backdrop { background: rgb(42 20 22 / .55); }
 .dialog-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 8px; }
 .dialog-head h3 { font-family: var(--font-display); font-weight: 400; font-size: 2.25rem; line-height: 1.05; margin: 0; }
 .dialog-head h3 em { font-style: italic; color: var(--bordo); }
-.icon-btn { background: none; border: 1px solid transparent; padding: 6px; cursor: pointer; line-height: 0; margin: -6px -6px 0 0; transition: border-color .2s; }
+.icon-btn { background: none; border: 1px solid transparent; border-radius: 6px; padding: 6px; cursor: pointer; line-height: 0; margin: -6px -6px 0 0; transition: border-color .2s; }
 .icon-btn:hover { border-color: var(--line-strong); }
 .icon-btn:focus-visible { outline: 2px solid var(--bordo); outline-offset: 2px; }
 .dialog-inner > p { color: var(--muted); max-width: 52ch; margin: 0 0 32px; }
@@ -158,7 +153,7 @@ input:disabled { cursor: not-allowed; }
 .choice { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .choice label {
   position: relative; display: flex; align-items: center; justify-content: center;
-  min-height: 50px; padding: 0 16px; border: 1px solid var(--line-strong); cursor: pointer;
+  min-height: 50px; padding: 0 16px; border: 1px solid var(--line-strong); border-radius: 6px; cursor: pointer;
   font-weight: 500; font-size: .9375rem; text-align: center;
   transition: background-color .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
 }
@@ -196,9 +191,8 @@ input:disabled { cursor: not-allowed; }
 /* ---------- Responsive ---------- */
 @media (max-width: 720px) {
   .details, .dc-cols, .dialog-cols { grid-template-columns: 1fr; }
+  .details > :first-child, .dc-cols > :first-child { padding-right: 0; }
   .details > * + *, .dc-cols > * + * { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 32px; }
-  .print-a { grid-column: 1 / 9; }
-  .print-b { grid-column: 5 / 13; margin-top: 46%; border-width: 6px; }
   .rule { height: 48px; }
 }
 @media (max-width: 560px) {
