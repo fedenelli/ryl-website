@@ -99,9 +99,7 @@
     err.hidden = !invalid;
     if (input) input.setAttribute('aria-invalid', invalid ? 'true' : 'false');
   }
-  ['nombre', 'apellido'].forEach(function (id) {
-    $('#' + id).addEventListener('input', function () { if (this.value.trim()) setInvalid(id, false); });
-  });
+  $('#nombre').addEventListener('input', function () { if (this.value.trim()) setInvalid('nombre', false); });
   // Si no viene, restricciones y canción no aplican: se bloquean y se vacían.
   form.querySelectorAll('input[name="asistencia"]').forEach(function (r) {
     r.addEventListener('change', function () {
@@ -121,14 +119,13 @@
     formError.hidden = true;
     var data = {
       nombre: $('#nombre').value.trim(),
-      apellido: $('#apellido').value.trim(),
       asistencia: (form.querySelector('input[name="asistencia"]:checked') || {}).value || '',
       restricciones: $('#restricciones').value.trim(),
       cancion: $('#cancion').value.trim(),
       mensaje: $('#mensaje').value.trim()
     };
     var firstInvalid = null;
-    [['nombre', !data.nombre], ['apellido', !data.apellido], ['asistencia', !data.asistencia]].forEach(function (p) {
+    [['nombre', !data.nombre], ['asistencia', !data.asistencia]].forEach(function (p) {
       setInvalid(p[0], p[1]);
       if (p[1] && !firstInvalid) firstInvalid = p[0];
     });
@@ -164,7 +161,7 @@
 
     send.then(function () {
       form.hidden = true;
-      $('#success-title').textContent = '¡Gracias, ' + data.nombre + '!';
+      $('#success-title').textContent = '¡Gracias, ' + data.nombre.split(/\s+/)[0] + '!';
       $('#success-text').textContent = data.asistencia === 'si'
         ? 'Ya anotamos que venís. Nos vemos el 20 de noviembre.'
         : 'Ya anotamos que no vas a poder venir. Gracias por avisarnos.';

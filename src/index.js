@@ -8,7 +8,7 @@
  */
 
 const MAX_BODY_BYTES = 8 * 1024;
-const LIMITS = { nombre: 80, apellido: 80, restricciones: 300, cancion: 200, mensaje: 1000 };
+const LIMITS = { nombre: 120, restricciones: 300, cancion: 200, mensaje: 1000 };
 
 export default {
   async fetch(request, env) {
@@ -51,14 +51,13 @@ async function handleRsvp(request, env, url) {
   const asistencia = body.asistencia === 'si' ? 'si' : body.asistencia === 'no' ? 'no' : '';
   const data = {
     nombre: clean(body.nombre, LIMITS.nombre),
-    apellido: clean(body.apellido, LIMITS.apellido),
     asistencia,
     restricciones: asistencia === 'si' ? clean(body.restricciones, LIMITS.restricciones) : '',
     cancion: asistencia === 'si' ? clean(body.cancion, LIMITS.cancion) : '',
     mensaje: clean(body.mensaje, LIMITS.mensaje)
   };
-  if (!data.nombre || !data.apellido || !data.asistencia) {
-    return json({ error: 'Faltan nombre, apellido o asistencia' }, 400);
+  if (!data.nombre || !data.asistencia) {
+    return json({ error: 'Faltan nombre o asistencia' }, 400);
   }
 
   if (!env.N8N_WEBHOOK_URL) {

@@ -40,8 +40,7 @@ El Worker recibe el formulario en `/api/rsvp`, valida los campos, descarta bots 
 
 ```json
 {
-  "nombre": "Ana",
-  "apellido": "Pérez",
+  "nombre": "Ana Pérez",
   "asistencia": "si",
   "restricciones": "Sin TACC",
   "cancion": "Tema y artista",

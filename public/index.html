@@ -92,7 +92,7 @@
         <div class="reveal">
           <span class="label">Ellos</span>
           <ul class="dc-list">
-            <li><span class="ms" aria-hidden="true">checkroom</span><span>Traje o saco con pantalón.</span></li>
+            <li><span class="ms" aria-hidden="true">checkroom</span><span>Traje o saco con pantalón de vestir.</span></li>
             <li><span class="ms" aria-hidden="true">palette</span><span>Amplia gama de colores y tonos neutros.<span class="dc-hint">Los colores son solo sugerencias.</span></span></li>
             <li><span class="ms" aria-hidden="true">diamond</span><span>Zapatos o mocasines. Corbata opcional.</span></li>
           </ul>
@@ -109,17 +109,10 @@
       <h2 id="rsvp-titulo" class="reveal">Confirmá tu asistencia</h2>
       <p class="intro reveal">Nos ayuda mucho saber con tiempo si venís. Te pedimos que confirmes antes del <span id="rsvp-deadline">20 de octubre de 2026</span>.</p>
       <form id="rsvp-form" novalidate>
-        <div class="field-row">
-          <div class="field">
-            <label for="nombre">Nombre</label>
-            <input id="nombre" name="nombre" type="text" autocomplete="given-name" required>
-            <p class="error" id="err-nombre" hidden>Escribí tu nombre.</p>
-          </div>
-          <div class="field">
-            <label for="apellido">Apellido</label>
-            <input id="apellido" name="apellido" type="text" autocomplete="family-name" required>
-            <p class="error" id="err-apellido" hidden>Escribí tu apellido.</p>
-          </div>
+        <div class="field">
+          <label for="nombre">Nombre y apellido</label>
+          <input id="nombre" name="nombre" type="text" autocomplete="name" required>
+          <p class="error" id="err-nombre" hidden>Escribí tu nombre y apellido.</p>
         </div>
         <fieldset class="field" id="field-asistencia">
           <legend>¿Venís?</legend>
@@ -178,7 +171,7 @@
       <div>
         <span class="label">Ellos</span>
         <ul>
-          <li>Traje o saco con pantalón.</li>
+          <li>Traje o saco con pantalón de vestir.</li>
           <li>Camisa lisa o con un estampado discreto.</li>
           <li>Zapatos o mocasines. Corbata opcional.</li>
           <li>Amplia gama de colores y tonos neutros. Son sugerencias, no una regla.</li>
