@@ -168,7 +168,7 @@
       var attending = data.asistencia === 'si';
       $('#success-title').textContent = attending ? '¡Qué lindo que vengas!' : '¡Gracias, ' + data.nombre.split(/\s+/)[0] + '!';
       $('#success-text').textContent = attending
-        ? 'Ya anotamos tu confirmación.\nNos vemos el 20 de noviembre 🤍'
+        ? 'Ya anotamos tu confirmación.\nNos vemos el 20 de noviembre.'
         : 'Ya anotamos que no vas a poder venir. Gracias por avisarnos.';
       var ok = $('#rsvp-success');
       ok.hidden = false;
