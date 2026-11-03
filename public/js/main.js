@@ -87,6 +87,45 @@
   $('#dc-close').addEventListener('click', function () { dlg.close(); });
   dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
 
+  // ---------- Regalos: copiar CBU y alias ----------
+  // navigator.clipboard solo existe en https o localhost; si no está, se usa execCommand con un textarea temporal.
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      ok ? resolve() : reject(new Error('No se pudo copiar'));
+    });
+  }
+  var copyStatus = $('#copy-status');
+  document.querySelectorAll('.copy').forEach(function (b) {
+    var timer;
+    b.addEventListener('click', function () {
+      var text = b.getAttribute('data-copy');
+      copyText(text).then(function () {
+        b.textContent = 'Copiado';
+        copyStatus.textContent = 'Copiado: ' + text;
+      }, function () {
+        // Si no se pudo copiar, se selecciona el valor para que el invitado lo copie a mano.
+        var range = document.createRange();
+        range.selectNodeContents(b.closest('.bank').querySelector('.bank-value'));
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      });
+      clearTimeout(timer);
+      timer = setTimeout(function () { b.textContent = 'Copiar'; }, 2000);
+    });
+  });
+
   // ---------- Formulario ----------
   var form = $('#rsvp-form'), btn = $('#submit-btn'), formError = $('#form-error');
   var optionalOnAttend = [['restricciones', 'field-restricciones'], ['cancion', 'field-cancion']];
