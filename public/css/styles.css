@@ -177,6 +177,7 @@ input:disabled { cursor: not-allowed; }
 .error { color: var(--bordo); font-size: .8125rem; font-weight: 500; margin: 0; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .submit-row { display: flex; justify-content: center; padding-top: 8px; }
+.fotos-cta { display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .rsvp-success { text-align: center; padding-top: 8px; }
 /* Recibe el foco por código para que los lectores de pantalla anuncien el mensaje; no hace falta el contorno. */
 .rsvp-success:focus { outline: none; }
